@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BP Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .container {
+            width: 50%;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffffff, #f7f7f7);
+            color: #333;
+            border-radius: 15px;
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        h2 {
+            color: #007BFF;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+            text-align: center;
+            background: #fafafa;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            border-color: #007BFF;
+            box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .results {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        .box {
+            width: 47%;
+            padding: 20px;
+            background: #fff;
+            color: #333;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #007BFF;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: #0056b3;
+        }
+        .tips {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef7ff;
+            color: #333;
+            border-left: 5px solid #007BFF;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+        .tips:hover {
+            background: #d0eaff;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Blood Pressure Calculator</h2>
+        <label for="systolic">Systolic (mmHg):</label>
+        <input type="number" id="systolic" placeholder="Enter systolic pressure">
+        <br>
+        <label for="diastolic">Diastolic (mmHg):</label>
+        <input type="number" id="diastolic" placeholder="Enter diastolic pressure">
+        <br>
+        <button onclick="calculateBP()">Calculate</button>
+        
+        <div class="results">
+            <div class="box">
+                <h3>Standard BP</h3>
+                <p>Normal: &lt;120 / &lt;80 mmHg</p>
+                <p>Elevated: 120-129 / &lt;80 mmHg</p>
+                <p>Hypertension: ≥130 / ≥80 mmHg</p>
+            </div>
+            <div class="box" id="yourResult">
+                <h3>Your Result</h3>
+                <p id="bpResult">--</p>
+            </div>
+        </div>
+        <div class="tips" id="tips">
+            <h4>Health Tips:</h4>
+            <p id="tipText">Enter your BP to get tips.</p>
+        </div>
+    </div>
+    
+    <script>
+        function calculateBP() {
+            let systolic = parseInt(document.getElementById('systolic').value);
+            let diastolic = parseInt(document.getElementById('diastolic').value);
+            let resultText = '';
+            let tips = '';
+
+            if (systolic < 120 && diastolic < 80) {
+                resultText = `Normal (${systolic}/${diastolic} mmHg)`;
+                tips = 'Maintain a healthy lifestyle with a balanced diet and regular exercise.';
+            } else if (systolic >= 120 && systolic <= 129 && diastolic < 80) {
+                resultText = `Elevated (${systolic}/${diastolic} mmHg)`;
+                tips = 'Reduce salt intake and increase physical activity.';
+            } else if (systolic >= 130 || diastolic >= 80) {
+                resultText = `Hypertension (${systolic}/${diastolic} mmHg)`;
+                tips = 'Consult a doctor, reduce stress, and avoid excessive salt and alcohol.';
+            } else {
+                resultText = 'Invalid Input';
+                tips = 'Please enter valid blood pressure values.';
+            }
+
+            document.getElementById('bpResult').innerText = resultText;
+            document.getElementById('tipText').innerText = tips;
+        }
+    </script>
+</body>
+</html>
